@@ -1,0 +1,38 @@
+.MaxNumber {
+  background-color: aqua;
+}
+
+.MaxNumberError {
+  background-color: red;
+
+}
+
+.input {
+  overflow: hidden;
+}
+
+.MaxCounter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: orange;
+  width: 168px;
+  height: 50px;
+
+}
+
+.displayBlock {
+  display: flex;
+  gap: 10px;
+}
+
+
+.display{
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid;
+  width: 168px;
+  height: 50px;
+}
