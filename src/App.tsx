@@ -1,86 +1,90 @@
 import React, {ChangeEvent, useState} from 'react';
-import s from './App.module.css'
+import './App.css'
 import {SuperButton} from "./Components/SuperButton";
+import {SuperInput} from "./Components/SuperInput";
 
 
 function App() {
 
+    const [counterMath, setCounterMath] = useState({min: 0, max: 0})
     const [counter, setCounter] = useState<number>(0)
     const [min, setMin] = useState<string>('')
     const [max, setMax] = useState<string>('')
 
 
-    const MinHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        setMin(e.currentTarget.value)
-        setCounter(+e.currentTarget.value)
+    const incrCounter = () => {
+        setCounter(counter + 1)
     }
 
-    const MaxHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        setMax(e.currentTarget.value)
+
+    const setInputValue = () => {
+        setCounterMath({...counterMath, min: +min, max: +max})
+        setCounter(+counterMath.min)
+
     }
 
-    const ResetHandler = () => {
-        setMax('')
-        setMin('')
+    const resetInputValue = () => {
+        setCounterMath({...counterMath, min: +min, max: +max})
         setCounter(0)
-    }
-
-    const CounterPlusHandler = () => {
-        if (min < max) {
-            setCounter(counter + 1)
-        }
-    }
-
-    const CounterMinusHandler = () => {
-        setCounter(counter - 1)
+        setMin('')
+        setMax('')
     }
 
 
     return (
         <div className="App">
-            <div>
-                <input
-                    className={s.input}
-                    placeholder={'Min'}
-                    onChange={MinHandler}
-                    value={min}
-                    type="number"
-                />
+            <section>
+                <div className={"setSection"}>
+                    <SuperInput
+                        setValue={setMin}
+                        value={min}
+                        placeholder="MIN"
+                    />
+                    <SuperInput
+                        setValue={setMax}
+                        value={max}
+                        placeholder="MAX"
+                    />
+                    <SuperButton
+                        counter={counter}
+                        callback={setInputValue}
+                        disable={+min === counterMath.min && counterMath.max === +max}
+                    >
+                        Set
+                    </SuperButton>
+
+
+                </div>
 
                 <div>
-                    <div className={counter === +max ? ' ' + s.MaxCounter : s.display}>
-                        {counter}
+                    <div className={'counter'}> {counterMath.min >= counterMath.max
+                        ? '"Error" not correct data '
+                        : counterMath.min < counterMath.max
+                            ? counter
+                            : 'enter value and press "set"'}
                     </div>
-                    <div className={s.displayBlock}>
 
+                    <div>
                         <SuperButton
-                            disabled={counter === +min}
-                            callBack={CounterMinusHandler}
-                        >-
-                        </SuperButton>
-
-                        <SuperButton callBack={ResetHandler}
-                                     disabled={counter === +min}
-                        >reset
+                            callback={incrCounter}
+                            disable={counter === +counterMath.max}
+                        >
+                            inc
                         </SuperButton>
 
                         <SuperButton
-                            disabled={counter === +max}
-                            callBack={CounterPlusHandler}
-                        >+
+                            counter={counter}
+                            callback={resetInputValue}
+                            disable={counter === 0}
+                        >
+                            reset
                         </SuperButton>
-
                     </div>
 
                 </div>
 
-                <input
-                    type="number"
-                    placeholder={'Max'}
-                    onChange={MaxHandler}  //вводится е уточнить
-                    value={max}
-                />
-            </div>
+
+            </section>
         </div>
     );
 }

@@ -1,0 +1,20 @@
+.App section {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+}
+.setSection {
+    background-color: black;
+    color: white;
+    width: 200px;
+    height: 200px;
+}
+
+.counter {
+    background-color: cadetblue;
+    width: 200px;
+    height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

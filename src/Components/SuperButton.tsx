@@ -1,29 +1,29 @@
 import React from 'react';
 import s from './SuperButton.module.css'
 
-type PropsType = {
-    callBack: () => void
-    color?: string
-    children: string
-    disabled?: boolean
-
+type SuperButtonType = {
+    counter?: number
+    children?: string
+    callback ?: () => void
+    disable?: boolean
 }
-
-export const SuperButton: React.FC<PropsType> = (props) => {
-    const {
-        callBack,
-        color,
-        children,
-        disabled,
-        ...otherProps
-    } = props
+/*: React.FC<SuperButtonType>*/
+export const  SuperButton = (props: SuperButtonType) => {
 
 
-    const finalClassName = `${disabled ? s.buttonDisabled : s.button}`
+    // const finalClassName = `${disabled ? s.buttonDisabled : s.button}`
+
+
+
 
     return (
         <div>
-            <button className={finalClassName} onClick={callBack} disabled={disabled}>{children}</button>
+            <button
+                onClick={props.callback}
+                disabled={props.disable}
+            >{props.children}
+
+            </button>
         </div>
     )
 }
