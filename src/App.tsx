@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useState} from 'react';
+import React, {ChangeEvent, useEffect, useState} from 'react';
 import './App.css'
 import {SuperButton} from "./Components/SuperButton";
 import {SuperInput} from "./Components/SuperInput";
@@ -7,9 +7,10 @@ import {SuperInput} from "./Components/SuperInput";
 function App() {
 
     const [counterMath, setCounterMath] = useState({min: 0, max: 0})
-    const [counter, setCounter] = useState<number>(0)
+    const [counter, setCounter] = useState(0)
     const [min, setMin] = useState<string>('')
     const [max, setMax] = useState<string>('')
+
 
 
     const incrCounter = () => {
@@ -24,11 +25,13 @@ function App() {
     }
 
     const resetInputValue = () => {
-        setCounterMath({...counterMath, min: +min, max: +max})
-        setCounter(0)
         setMin('')
         setMax('')
+        setCounter(0)
+        setCounterMath({...counterMath, min: +min, max: +max})
     }
+
+
 
 
     return (
@@ -74,8 +77,8 @@ function App() {
 
                         <SuperButton
                             counter={counter}
-                            callback={resetInputValue}
                             disable={counter === 0}
+                            callback={resetInputValue}
                         >
                             reset
                         </SuperButton>
