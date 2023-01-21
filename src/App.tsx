@@ -7,8 +7,6 @@ import SettingsCounter from "./Components/SettingsCounter";
 
 
 function App() {
-
-
     //{ min: 0 , max : 0 }
     const [min, setMin] = useState<string>('')
     const [max, setMax] = useState<string>('')
@@ -28,8 +26,6 @@ function App() {
             setMax(newMaxValue)
         }
     }, [])
-
-
     useEffect(() => {
         let presentValue = localStorage.getItem('presentValue')
         if (presentValue) {
@@ -40,22 +36,13 @@ function App() {
     }, [counter])
 
 
-    const disableSetHandler = () => {
-        if (min !== localStorage.getItem('startValue')
-            && max !== localStorage.getItem('maxValue')) {
-            setDisable(false)
-        } else {
-            setDisable(true)
-        }
-    }
     const onClickSet = () => {
-        disableSetHandler()
+        setDisable(true)
         localStorage.setItem('startValue', min)
         localStorage.setItem('maxValue', max)
         localStorage.setItem('presentValue', min)
         setCounter(+min)
     }
-
 
     const onClickDeleteALl = () => {
         localStorage.removeItem('startValue')
@@ -75,6 +62,7 @@ function App() {
         setCounter(+min)
 
     }
+
 
     return (
         <div className="App">

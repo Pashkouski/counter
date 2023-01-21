@@ -13,8 +13,6 @@ type MainCounterType = {
 
 const MainCounter = (props: MainCounterType) => {
 
-    const [disable, setDisable] = useState<boolean>(false)
-
     const addDisableHandler = () => {
         if (+props.max === props.counter) {
             return true
