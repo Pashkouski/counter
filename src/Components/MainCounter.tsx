@@ -33,7 +33,7 @@ const MainCounter = (props: MainCounterType) => {
 
 
     return (
-        <div className={m.display}>
+        <div className={+props.max === props.counter ? m.displayMax : m.display}>
             <div>  {props.min === '' && props.max === ''
                 ? 'Введите min и max значения'
                 : props.max === ''

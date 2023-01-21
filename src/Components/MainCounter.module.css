@@ -17,3 +17,16 @@
     align-items: center;
     gap: 5px;
 }
+
+.displayMax {
+    color: red;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100px;
+    height: 60px;
+    font-size: 30px;
+    text-align: center;
+    gap: 20px;
+}
