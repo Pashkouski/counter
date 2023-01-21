@@ -2,92 +2,103 @@ import React, {ChangeEvent, useEffect, useState} from 'react';
 import './App.css'
 import {SuperButton} from "./Components/SuperButton";
 import {SuperInput} from "./Components/SuperInput";
+import MainCounter from "./Components/MainCounter";
+import SettingsCounter from "./Components/SettingsCounter";
 
 
 function App() {
 
-    const [counterMath, setCounterMath] = useState({min: 0, max: 0})
-    const [counter, setCounter] = useState(0)
+
+    //{ min: 0 , max : 0 }
     const [min, setMin] = useState<string>('')
     const [max, setMax] = useState<string>('')
+    const [counter, setCounter] = useState(+min)
+    const [disable, setDisable] = useState(true)
+
+    useEffect(() => {
+        let startValue = localStorage.getItem('startValue')
+        let maxValue = localStorage.getItem('maxValue')
+        if (startValue) {
+            const newValue = JSON.parse(startValue)
+            setMin(newValue)
+            setCounter(newValue)
+        }
+        if (maxValue) {
+            const newMaxValue = JSON.parse(maxValue)
+            setMax(newMaxValue)
+        }
+    }, [])
 
 
+    useEffect(() => {
+        let presentValue = localStorage.getItem('presentValue')
+        if (presentValue) {
+            const newCounterValue = JSON.parse(presentValue)
+            setCounter(+newCounterValue)
+        }
 
-    const incrCounter = () => {
-        setCounter(counter + 1)
+    }, [counter])
+
+
+    const disableSetHandler = () => {
+        if (min !== localStorage.getItem('startValue')
+            && max !== localStorage.getItem('maxValue')) {
+            setDisable(false)
+        } else {
+            setDisable(true)
+        }
+    }
+    const onClickSet = () => {
+        disableSetHandler()
+        localStorage.setItem('startValue', min)
+        localStorage.setItem('maxValue', max)
+        localStorage.setItem('presentValue', min)
+        setCounter(+min)
     }
 
 
-    const setInputValue = () => {
-        setCounterMath({...counterMath, min: +min, max: +max})
-        setCounter(+counterMath.min)
-
-    }
-
-    const resetInputValue = () => {
+    const onClickDeleteALl = () => {
+        localStorage.removeItem('startValue')
+        localStorage.removeItem('maxValue')
+        localStorage.removeItem('presentValue')
+        setCounter(0)
         setMin('')
         setMax('')
-        setCounter(0)
-        setCounterMath({...counterMath, min: +min, max: +max})
     }
+    const onClickAdd = () => {
+        setCounter(counter + 1)
+        localStorage.setItem('presentValue', String(counter + 1))
 
+    }
+    const onClickReset = () => {
+        localStorage.setItem('presentValue', min)
+        setCounter(+min)
 
-
+    }
 
     return (
         <div className="App">
-            <section>
-                <div className={"setSection"}>
-                    <SuperInput
-                        setValue={setMin}
-                        value={min}
-                        placeholder="MIN"
-                    />
-                    <SuperInput
-                        setValue={setMax}
-                        value={max}
-                        placeholder="MAX"
-                    />
-                    <SuperButton
-                        counter={counter}
-                        callback={setInputValue}
-                        disable={+min === counterMath.min && counterMath.max === +max}
-                    >
-                        Set
-                    </SuperButton>
 
 
-                </div>
-
-                <div>
-                    <div className={'counter'}> {counterMath.min >= counterMath.max
-                        ? '"Error" not correct data '
-                        : counterMath.min < counterMath.max
-                            ? counter
-                            : 'enter value and press "set"'}
-                    </div>
-
-                    <div>
-                        <SuperButton
-                            callback={incrCounter}
-                            disable={counter === +counterMath.max}
-                        >
-                            inc
-                        </SuperButton>
-
-                        <SuperButton
-                            counter={counter}
-                            disable={counter === 0}
-                            callback={resetInputValue}
-                        >
-                            reset
-                        </SuperButton>
-                    </div>
-
-                </div>
+            <MainCounter
+                counter={counter}
+                min={min}
+                max={max}
+                onClickAdd={onClickAdd}
+                onClickDeleteALl={onClickDeleteALl}
+                onClickReset={onClickReset}
+            />
 
 
-            </section>
+            <SettingsCounter
+                setMin={setMin}
+                setMax={setMax}
+                min={min}
+                max={max}
+                onClickSet={onClickSet}
+                disable={disable}
+                setDisable={setDisable}
+            />
         </div>
     );
 }
