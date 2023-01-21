@@ -14,6 +14,7 @@ export const  SuperButton = (props: SuperButtonType) => {
             <button
                 onClick={props.callback}
                 disabled={props.disable}
+                className={props.disable ? s.buttonDisabled : s.button}
             >
                 {props.children}
             </button>

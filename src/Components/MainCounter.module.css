@@ -1,0 +1,19 @@
+.display {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    width: 100px;
+    height: 60px;
+    font-size: 30px;
+    text-align: center;
+    gap: 20px;
+}
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 5px;
+}

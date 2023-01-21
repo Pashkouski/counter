@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {SuperInput} from "./SuperInput";
 import {SuperButton} from "./SuperButton";
+import s from './SettingsCounter.module.css'
 
 type SettingsCounterType = {
     setMin: (min: string) => void

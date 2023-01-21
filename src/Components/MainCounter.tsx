@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import {SuperButton} from "./SuperButton";
+import m from './MainCounter.module.css'
 
 type MainCounterType = {
     counter: number
@@ -17,7 +18,7 @@ const MainCounter = (props: MainCounterType) => {
         if (+props.max === props.counter) {
             return true
         }
-        if(+props.min >= +props.max) {
+        if (+props.min >= +props.max) {
             return true
         }
     }
@@ -32,8 +33,8 @@ const MainCounter = (props: MainCounterType) => {
 
 
     return (
-        <div>
-            {props.min === '' && props.max === ''
+        <div className={m.display}>
+            <div>  {props.min === '' && props.max === ''
                 ? 'Введите min и max значения'
                 : props.max === ''
                     ? 'Введите max'
@@ -47,26 +48,27 @@ const MainCounter = (props: MainCounterType) => {
                                     ? props.counter
                                     : localStorage.getItem('presentValue')
             }
-
-
-            <SuperButton
-                callback={props.onClickAdd}
-                disable={addDisableHandler()}
-            >
-                +
-            </SuperButton>
-            <SuperButton
-                callback={props.onClickDeleteALl}
-                disable={props.min === '' && props.max === ''}
-            >
-                clear
-            </SuperButton>
-            <SuperButton
-                callback={props.onClickReset}
-                disable={resetDisableHandler()}
-            >
-                reset
-            </SuperButton>
+            </div>
+            <div className={m.container}>
+                <SuperButton
+                    callback={props.onClickAdd}
+                    disable={addDisableHandler()}
+                >
+                    +
+                </SuperButton>
+                <SuperButton
+                    callback={props.onClickDeleteALl}
+                    disable={props.min === '' && props.max === ''}
+                >
+                    clear
+                </SuperButton>
+                <SuperButton
+                    callback={props.onClickReset}
+                    disable={resetDisableHandler()}
+                >
+                    reset
+                </SuperButton>
+            </div>
         </div>
     );
 };

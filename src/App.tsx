@@ -1,13 +1,11 @@
 import React, {ChangeEvent, useEffect, useState} from 'react';
 import './App.css'
-import {SuperButton} from "./Components/SuperButton";
-import {SuperInput} from "./Components/SuperInput";
 import MainCounter from "./Components/MainCounter";
 import SettingsCounter from "./Components/SettingsCounter";
 
 
+
 function App() {
-    //{ min: 0 , max : 0 }
     const [min, setMin] = useState<string>('')
     const [max, setMax] = useState<string>('')
     const [counter, setCounter] = useState(+min)
@@ -66,27 +64,31 @@ function App() {
 
     return (
         <div className="App">
+            <div className={'MainCounterWrapper'}>
+                <MainCounter
+                    counter={counter}
+                    min={min}
+                    max={max}
+                    onClickAdd={onClickAdd}
+                    onClickDeleteALl={onClickDeleteALl}
+                    onClickReset={onClickReset}
+                />
+
+            </div>
+            <div className={'SettingsCounterWrapper'}>
+                <SettingsCounter
+                    setMin={setMin}
+                    setMax={setMax}
+                    min={min}
+                    max={max}
+                    onClickSet={onClickSet}
+                    disable={disable}
+                    setDisable={setDisable}
+                />
+            </div>
 
 
-            <MainCounter
-                counter={counter}
-                min={min}
-                max={max}
-                onClickAdd={onClickAdd}
-                onClickDeleteALl={onClickDeleteALl}
-                onClickReset={onClickReset}
-            />
 
-
-            <SettingsCounter
-                setMin={setMin}
-                setMax={setMax}
-                min={min}
-                max={max}
-                onClickSet={onClickSet}
-                disable={disable}
-                setDisable={setDisable}
-            />
         </div>
     );
 }
